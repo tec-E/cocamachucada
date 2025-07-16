@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Support\Facades\Log;
 class Handler extends ExceptionHandler
 {
     /**
@@ -29,7 +29,12 @@ class Handler extends ExceptionHandler
     }
     public function render($request, Throwable $exception)
     {
-        dd($exception); // esto detiene todo y muestra el error exacto
-    }
+        // Guarda el error en los logs de Laravel
+        Log::error($exception);
 
+        // O si quieres que se muestre el error en pantalla, puedes usar:
+        // dd($exception);
+
+        return parent::render($request, $exception);
+    }
 }
