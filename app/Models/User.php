@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
 class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -28,9 +28,10 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-    // 👇 Esto es lo que habilita el acceso a Filament
-    public function canAccessFilament(): bool
+    // Método obligatorio en Filament 3
+    public function canAccessPanel(Panel $panel): bool
     {
-        return true; // ⚠️ Puedes personalizar esto más adelante por rol o permiso
+        return true;
     }
 }
+
