@@ -28,3 +28,9 @@ Route::get('/clear', function () {
     Artisan::call('config:cache');
     return "Cache cleared";
 });
+Route::get('/debug', function () {
+    return [
+        'app_env' => env('APP_ENV'),
+        'app_debug' => config('app.debug'),
+    ];
+});
